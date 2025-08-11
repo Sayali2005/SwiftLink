@@ -1,14 +1,36 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import urlRoutes from "./routes/urlRoutes.js"; // ✅ import, not require
+import urlRoutes from "./routes/urlRoutes.js";
 import dotenv from "dotenv";
-dotenv.config(); // ✅ must come before using process.env
 
+dotenv.config();
 
 const app = express();
+
+// ✅ CORS setup
+const allowedOrigins = [
+  "http://localhost:5173", // Vite local dev
+  "https://swiftlink.web.app", // Firebase hosting
+  "https://swiftlink-vvbf.onrender.com" // Render backend (self-calls)
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
+// ✅ Handle preflight requests
+app.options("*", cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
 app.use(express.json());
-app.use(cors());
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
