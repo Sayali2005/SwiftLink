@@ -9,8 +9,12 @@ router.post("/api/shorten", async (req, res) => {
     const { longUrl } = req.body;
     if (!longUrl) return res.status(400).json({ error: "URL required" });
 
+
+    const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 5000}`;
     const shortCode = nanoid(6);
-    const shortUrl = `${process.env.BASE_URL}/${shortCode}`;
+    const shortUrl = `${baseUrl}/${shortCode}`;
+
+   
 
     const newUrl = new Url({ longUrl, shortCode, shortUrl });
     await newUrl.save();
