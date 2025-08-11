@@ -10,9 +10,10 @@ const app = express();
 
 // ✅ CORS setup
 const allowedOrigins = [
-  "http://localhost:5173", // Vite local dev
-  "https://swiftlink.web.app", // Firebase hosting
-  "https://swiftlink-vvbf.onrender.com" // Render backend (self-calls)
+  "http://localhost:5173",
+  "https://swiftlink.web.app",
+  "https://swiftlink-vvbf.onrender.com",
+  "https://swiftlink-2a685.web.app"  // Add this
 ];
 
 app.use(cors({
