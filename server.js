@@ -31,6 +31,8 @@ app.options("*", cors({
 }));
 
 app.use(express.json());
+console.log("BASE_URL loaded:", process.env.BASE_URL);
+
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
